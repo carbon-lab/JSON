@@ -23,6 +23,19 @@ The `JSArray` is used to hold the data of the array in JSON. It is similar to
 
 Other class is stand for the base type of JSON like number, string, etc.
 
+### JSON
+This is a programming interface class. It only contains two functions: `parse`
+and `stringify`.
+
+The `parse` function is used to parse a JSON string and returns a `JSObject` object
+which could also be a `JSArray` object.
+
+```public static JSObject parse(String json)```
+
+`stringify` functions will returns the JSON string of any `JSObject` instance.
+
+```public static String stringify(JSObject object)```
+
 ### JSObject
 ```
 // Set a field in JSON object
