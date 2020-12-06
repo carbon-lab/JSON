@@ -30,14 +30,18 @@ and `stringify`.
 The `parse` function is used to parse a JSON string and returns a `JSObject` object
 which could also be a `JSArray` object.
 
-```public static JSObject parse(String json)```
+```java
+public static JSObject parse(String json)
+```
 
 `stringify` functions will returns the JSON string of any `JSObject` instance.
 
-```public static String stringify(JSObject object)```
+```java
+public static String stringify(JSObject object)
+```
 
 ### JSObject
-```
+```java
 // Set a field in JSON object
 public JSBase put(String key, JSBase value)
 
@@ -49,7 +53,7 @@ public Set<Entry<String, JSBase>> entrySet()
 ```
 
 ### JSArray
-```
+```java
 // Set s value in the array by number index
 public void set(int index, JSBase value)
 
