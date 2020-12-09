@@ -55,6 +55,7 @@ public class JSArray extends JSObject {
 			JSBase value = o.getValue();
 			if (value == null) R.append("null");
 			else R.append(o.getValue().stringify());
+			i++;
 		}
 		R.append(']');
 
