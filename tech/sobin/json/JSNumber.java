@@ -14,8 +14,15 @@ public abstract class JSNumber extends JSBase {
 
 		if (ch == '0') {
 			mode = 1;
-			ch = charStream.read();
-			if (ch != '.') throw new JSON.FormatException(charStream.position());
+			ch = charStream.peek();
+			if (ch != '.') {
+				if (ch == ',') {
+					return new JSInteger(0);
+				}
+				else
+					throw new JSON.FormatException(charStream.position());
+			}
+			charStream.read();
 			double t = 0.1;
 			ch = charStream.peek();
 			while (Character.isDigit(ch)) {

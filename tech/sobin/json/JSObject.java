@@ -32,6 +32,18 @@ public class JSObject extends JSBase {
 	public JSBase put(String key, JSBase value) {
 		return map.put(key, value);
 	}
+
+	public JSBase put(String key, String value) {
+		return put(key, new JSString(value));
+	}
+
+	public JSBase put(String key, int value) {
+		return put(key, new JSInteger(value));
+	}
+	
+	public JSBase put(String key, double value) {
+		return put(key, new JSDecimal(value));
+	}
 	
 	public JSBase get(String key) {
 		return map.get(key);
