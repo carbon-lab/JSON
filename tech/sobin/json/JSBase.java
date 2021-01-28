@@ -11,6 +11,10 @@ public abstract class JSBase {
 			charStream.read();
 			R = JSObject.parse(charStream);
 		}
+		else if (ch == '[') {
+			charStream.read();
+			R = JSArray.parse(charStream);
+		}
 		else if (Character.isDigit(ch))
 			R = JSNumber.parseNext(charStream);
 		else if (ch == 'n') {

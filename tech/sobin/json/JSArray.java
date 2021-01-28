@@ -55,7 +55,6 @@ public class JSArray extends JSObject {
 			JSBase value = o.getValue();
 			if (value == null) R.append("null");
 			else R.append(o.getValue().stringify());
-			i++;
 		}
 		R.append(']');
 
@@ -65,7 +64,11 @@ public class JSArray extends JSObject {
 	public static JSArray parse(CharStream charStream) throws JSON.FormatException {
 		JSArray R = new JSArray();
 
-		char ch;
+		char ch = charStream.peek();
+		if (ch == ']') {
+			charStream.read();
+			return R;
+		}
 		while (true) {
 			charStream.skipSpace();
 			JSBase value = JSBase.parse(charStream);
