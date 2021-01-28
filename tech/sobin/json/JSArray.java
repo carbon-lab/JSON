@@ -1,9 +1,11 @@
 package tech.sobin.json;
 
+import java.util.Iterator;
 import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.function.Consumer;
 
-public class JSArray extends JSObject {
+public class JSArray extends JSBase implements JSObjectLike, Iterable<JSBase> {
 	private final TreeMap<Integer, JSBase> array;
 	private int length;
 
@@ -35,7 +37,6 @@ public class JSArray extends JSObject {
 		return length;
 	}
 
-	@Override
 	public String stringify() {
 		StringBuilder R = new StringBuilder();
 		boolean isFirst = true;
@@ -55,6 +56,7 @@ public class JSArray extends JSObject {
 			JSBase value = o.getValue();
 			if (value == null) R.append("null");
 			else R.append(o.getValue().stringify());
+			i++;
 		}
 		R.append(']');
 
@@ -83,4 +85,62 @@ public class JSArray extends JSObject {
 		return R;
 	}
 
+	public void push(String value) {
+		this.push(new JSString(value));
+	}
+
+	public void push(Integer value) {
+		this.push(new JSInteger(value));
+	}
+
+	public void push(Double value) {
+		this.push(new JSDecimal(value));
+	}
+
+	public void set(int index, String value) {
+		this.set(index, new JSString(value));
+	}
+
+	public void set(int index, Integer value) {
+		this.set(index, new JSInteger(value));
+	}
+
+	public void set(int index, Double value) {
+		this.set(index, new JSDecimal(value));
+	}
+
+	@Override
+	public Iterator<JSBase> iterator() {
+		return new JSArrayIterator(this);
+	}
+
+	@Override
+	public void forEach(Consumer<? super JSBase> action) {
+		if (action != null) {
+			Iterator<JSBase> it = iterator();
+			while (it.hasNext()) {
+				action.accept(it.next());
+			}
+		}
+	}
+
+	private class JSArrayIterator implements Iterator<JSBase> {
+
+		private final JSArray array;
+		private int nextIndex = 0;
+
+		public JSArrayIterator(JSArray array) {
+			this.array = array;
+		}
+
+		@Override
+		public boolean hasNext() {
+			return nextIndex < array.length();
+		}
+
+		@Override
+		public JSBase next() {
+			return array.get(nextIndex++);
+		}
+	}
 }

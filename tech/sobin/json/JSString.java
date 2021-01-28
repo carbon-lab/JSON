@@ -9,11 +9,27 @@ public class JSString extends JSBase {
 	}
 
 	public JSString(String s) {
-		this.content = s;
+		if (s == null) content = "";
+		else this.content = s;
 	}
 
 	public String stringify() {
-		return "\"" + content + "\"";
+		StringBuilder R = new StringBuilder();
+		R.append('"');
+		for (char c: content.toCharArray()) {
+			switch (c) {
+				case '\n': R.append("\\n"); break;
+				case '\r': R.append("\\r"); break;
+				case '\t': R.append("\\t"); break;
+				case '\b': R.append("\\b"); break;
+				case '\f': R.append("\\f"); break;
+				case '\"': R.append("\\\""); break;
+				case '\0': R.append("\\u0000"); break;
+				default: R.append(c);
+			}
+		}
+		R.append('"');
+		return R.toString();
 	}
 
 	public static String parseNext(CharStream charStream) throws JSON.FormatException {

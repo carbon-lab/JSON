@@ -16,8 +16,12 @@ public class JSON {
 		return object.stringify();
 	}
 
-	public static JSObject parse(String string) throws FormatException {
-		JSObject R = null;
+	public static String stringify(JSBase value) {
+		return value.stringify();
+	}
+
+	public static JSObjectLike parse(String string) throws FormatException {
+		JSObjectLike R = null;
 		CharStream cs = new CharStream(string);
 		char ch;
 		while ((ch = cs.read()) != '\0') {

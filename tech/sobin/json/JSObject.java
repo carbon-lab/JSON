@@ -1,12 +1,15 @@
 package tech.sobin.json;
 
-import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.Spliterator;
+import java.util.function.Consumer;
 
-public class JSObject extends JSBase {
+public class JSObject extends JSBase implements JSObjectLike, Iterable<Entry<String, JSBase>> {
 
-	private HashMap<String, JSBase> map = new HashMap<String, JSBase>();
+	private LinkedHashMap<String, JSBase> map = new LinkedHashMap<String, JSBase>();
 	
 	public String stringify() {
 		StringBuilder R = new StringBuilder();
@@ -37,11 +40,11 @@ public class JSObject extends JSBase {
 		return put(key, new JSString(value));
 	}
 
-	public JSBase put(String key, int value) {
+	public JSBase put(String key, Integer value) {
 		return put(key, new JSInteger(value));
 	}
 	
-	public JSBase put(String key, double value) {
+	public JSBase put(String key, Double value) {
 		return put(key, new JSDecimal(value));
 	}
 	
@@ -80,4 +83,18 @@ public class JSObject extends JSBase {
 		return R;
 	}
 
+	@Override
+	public Iterator<Entry<String, JSBase>> iterator() {
+		return map.entrySet().iterator();
+	}
+
+	@Override
+	public void forEach(Consumer<? super Entry<String, JSBase>> action) {
+		map.entrySet().forEach(action);
+	}
+
+	@Override
+	public Spliterator<Entry<String, JSBase>> spliterator() {
+		return map.entrySet().spliterator();
+	}
 }
