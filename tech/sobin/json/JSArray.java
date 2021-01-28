@@ -1,14 +1,14 @@
 package tech.sobin.json;
 
-import java.util.HashMap;
+import java.util.TreeMap;
 import java.util.Map.Entry;
 
 public class JSArray extends JSObject {
-	private final HashMap<Integer, JSBase> array;
+	private final TreeMap<Integer, JSBase> array;
 	private int length;
 
 	public JSArray() {
-		this.array = new HashMap<Integer, JSBase>();
+		this.array = new TreeMap<Integer, JSBase>();
 		this.length = 0;
 	}
 
@@ -27,7 +27,7 @@ public class JSArray extends JSObject {
 		return array.get(index);
 	}
 
-	public HashMap<Integer, JSBase> getArray() {
+	public TreeMap<Integer, JSBase> getArray() {
 		return array;
 	}
 
